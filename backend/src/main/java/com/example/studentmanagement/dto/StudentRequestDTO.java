@@ -11,21 +11,8 @@ import lombok.NoArgsConstructor;
  *  StudentRequestDTO — What we expect when creating/updating a student
  * ═══════════════════════════════════════════════════════════════
  *
- *  DTO = Data Transfer Object.
  *  This class defines the shape of incoming JSON from the frontend.
- *  We NEVER expose the raw JPA entity — we use DTOs instead.
- *
- *  Why DTOs?
- *  - We control exactly what fields come in (security)
- *  - We validate before touching the database
- *  - We can version our API without breaking the entity
- *
- *  Validation annotations:
- *  @NotBlank  → field cannot be null, empty, or whitespace
- *  @Email     → must be valid email format
- *  @Size      → enforces min/max character length
- *  @Min/@Max  → enforces numeric range
- *  @Pattern   → enforces a regex pattern
+ *  We validate inputs here before processing.
  * ═══════════════════════════════════════════════════════════════
  */
 @Data

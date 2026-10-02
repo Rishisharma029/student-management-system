@@ -20,18 +20,7 @@ import java.util.List;
  *  Maps to the 'students' table in the database.
  *  Each instance of this class = one row in the table.
  *
- *  JPA Annotations quick reference:
- *  @Entity        → tells JPA this is a database table
- *  @Table         → lets us specify the exact table name
- *  @Id            → marks the primary key field
- *  @GeneratedValue → auto-increments the ID
- *  @Column        → customizes column constraints
- *
- *  Lombok Annotations:
- *  @Data          → generates getters, setters, toString, equals, hashCode
- *  @Builder       → lets us use Student.builder().name("x").build()
- *  @NoArgsConstructor → generates empty constructor (required by JPA)
- *  @AllArgsConstructor → generates constructor with all fields
+
  * ═══════════════════════════════════════════════════════════════
  */
 @Entity
@@ -50,7 +39,6 @@ public class Student {
 
     /**
      * Auto-generated primary key.
-     * IDENTITY strategy lets MySQL handle auto-increment.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,7 +86,6 @@ public class Student {
 
     /**
      * Automatically set when the record is first created.
-     * We use @CreationTimestamp so Hibernate handles it — we never set this manually.
      */
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -114,14 +101,8 @@ public class Student {
     /**
      * One student can have many attendance records.
      *
-     * mappedBy = "student" → the 'student' field in Attendance owns this relationship
-     * cascade = ALL        → if we delete a student, their attendance is also deleted
-     * fetch = LAZY         → attendance records are NOT loaded unless we explicitly ask
-     *                        (this prevents loading thousands of records by accident)
-     * orphanRemoval = true → if an attendance record is removed from this list, delete it
-     *
-     * JsonIgnore → prevents infinite loop when Jackson serializes:
-     *   Student → Attendance → Student → Attendance → ...
+     * Attendance records are lazy-loaded to prevent N+1 issues.
+     * JsonIgnore prevents circular serialization.
      */
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL,
                fetch = FetchType.LAZY, orphanRemoval = true)

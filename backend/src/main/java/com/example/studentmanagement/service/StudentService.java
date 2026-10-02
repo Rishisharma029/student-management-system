@@ -31,12 +31,7 @@ import java.util.stream.Collectors;
  *  - Call the repository
  *  - Throw meaningful exceptions when something goes wrong
  *
- *  @Service   → tells Spring to create this as a Spring bean
- *  @Slf4j     → gives us a 'log' object for logging
- *  @RequiredArgsConstructor → generates a constructor for all 'final' fields
- *                             (this is how Spring injects the repository)
- *  @Transactional → methods wrapped in a database transaction;
- *                   if anything throws, the whole thing rolls back
+
  * ═══════════════════════════════════════════════════════════════
  */
 @Slf4j
@@ -44,7 +39,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StudentService {
 
-    // Spring injects this automatically because of @RequiredArgsConstructor
     private final StudentRepository studentRepository;
 
     // ==================================================================
@@ -86,7 +80,6 @@ public class StudentService {
         // Convert the incoming DTO into a Student entity
         Student student = mapRequestDTOToEntity(requestDTO);
 
-        // Save to the database (JPA handles the INSERT)
         Student savedStudent = studentRepository.save(student);
 
         log.info("Student created successfully with ID: {}", savedStudent.getId());
@@ -181,7 +174,6 @@ public class StudentService {
         existingStudent.setCourse(requestDTO.getCourse());
         existingStudent.setSemester(requestDTO.getSemester());
 
-        // Step 5: Save (JPA handles the UPDATE)
         Student updatedStudent = studentRepository.save(existingStudent);
 
         log.info("Student ID {} updated successfully", id);
@@ -279,8 +271,6 @@ public class StudentService {
      * Finds a student by ID or throws StudentNotFoundException.
      * This pattern is used in multiple methods, so we extract it.
      *
-     * Optional<T>.orElseThrow() → returns the value if present,
-     * otherwise executes the lambda and throws the exception.
      */
     private Student findStudentOrThrow(Long id) {
         return studentRepository.findById(id)

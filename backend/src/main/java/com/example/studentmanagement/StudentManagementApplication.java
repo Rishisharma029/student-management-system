@@ -9,10 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * ═══════════════════════════════════════════════════════════════
  *
  *  This is where the Spring Boot application starts.
- *  @SpringBootApplication does three things automatically:
- *    1. @Configuration  — marks this class as a configuration source
- *    2. @EnableAutoConfiguration — lets Spring Boot auto-configure beans
- *    3. @ComponentScan  — scans this package for Spring components
+
  *
  *  You don't need to touch this file.
  * ═══════════════════════════════════════════════════════════════
