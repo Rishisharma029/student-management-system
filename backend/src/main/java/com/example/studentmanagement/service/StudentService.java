@@ -62,7 +62,7 @@ public class StudentService {
     @Transactional
     public StudentResponseDTO createStudent(StudentRequestDTO requestDTO) {
         // TODO [JAVA-01]: Implement createStudent
-        return null;
+        throw new UnsupportedOperationException("Task not implemented yet");
     }
 
     // ==================================================================
@@ -76,7 +76,7 @@ public class StudentService {
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> getAllStudents() {
         // TODO [JAVA-02]: Implement getAllStudents
-        return null;
+        throw new UnsupportedOperationException("Task not implemented yet");
     }
 
     // ==================================================================
@@ -93,7 +93,7 @@ public class StudentService {
     @Transactional(readOnly = true)
     public StudentResponseDTO getStudentById(Long id) {
         // TODO [JAVA-03]: Implement getStudentById
-        return null;
+        throw new UnsupportedOperationException("Task not implemented yet");
     }
 
     // ==================================================================
@@ -117,7 +117,7 @@ public class StudentService {
     @Transactional
     public StudentResponseDTO updateStudent(Long id, StudentRequestDTO requestDTO) {
         // TODO [JAVA-04]: Implement updateStudent
-        return null;
+        throw new UnsupportedOperationException("Task not implemented yet");
     }
 
     // ==================================================================
@@ -151,7 +151,7 @@ public class StudentService {
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> searchStudents(String searchTerm) {
         // TODO [JAVA-06]: Implement searchStudents
-        return null;
+        throw new UnsupportedOperationException("Task not implemented yet");
     }
 
     /**
@@ -160,7 +160,7 @@ public class StudentService {
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> getStudentsByCourse(String course) {
         // TODO [JAVA-36]: Implement getStudentsByCourse
-        return java.util.Collections.emptyList();
+        throw new UnsupportedOperationException("Task not implemented yet");
     }
 
     /**
@@ -169,7 +169,7 @@ public class StudentService {
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> getStudentsBySemester(Integer semester) {
         // TODO [JAVA-37]: Implement getStudentsBySemester
-        return java.util.Collections.emptyList();
+        throw new UnsupportedOperationException("Task not implemented yet");
     }
 
     /**
@@ -179,7 +179,7 @@ public class StudentService {
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> getRecentStudents() {
         // TODO [JAVA-38]: Implement getRecentStudents
-        return java.util.Collections.emptyList();
+        throw new UnsupportedOperationException("Task not implemented yet");
     }
 
     // ==================================================================

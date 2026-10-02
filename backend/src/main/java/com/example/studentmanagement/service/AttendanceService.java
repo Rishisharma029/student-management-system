@@ -62,7 +62,7 @@ public class AttendanceService {
     @Transactional
     public AttendanceResponseDTO markAttendance(AttendanceRequestDTO requestDTO) {
         // TODO [JAVA-17]: Implement markAttendance
-        return null;
+        throw new UnsupportedOperationException("Task not implemented yet");
     }
 
     // ==================================================================
@@ -172,7 +172,7 @@ public class AttendanceService {
     @Transactional(readOnly = true)
     public AttendanceSummaryDTO getAttendanceSummary(Long studentId, Long subjectId) {
         // TODO [JAVA-18]: Implement getAttendanceSummary
-        return null;
+        throw new UnsupportedOperationException("Task not implemented yet");
     }
 
     /**
