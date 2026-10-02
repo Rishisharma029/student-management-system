@@ -61,46 +61,8 @@ public class AttendanceService {
      */
     @Transactional
     public AttendanceResponseDTO markAttendance(AttendanceRequestDTO requestDTO) {
-        log.info("Marking attendance: student={}, subject={}, date={}, status={}",
-            requestDTO.getStudentId(),
-            requestDTO.getSubjectId(),
-            requestDTO.getAttendanceDate(),
-            requestDTO.getStatus()
-        );
-
-        // Step 1: Verify both student and subject exist
-        // These methods throw NotFoundException if not found
-        Student student = findStudentEntityOrThrow(requestDTO.getStudentId());
-        Subject subject = findSubjectEntityOrThrow(requestDTO.getSubjectId());
-
-        // Step 2: Check for duplicate attendance
-        boolean alreadyMarked = attendanceRepository.existsByStudentIdAndSubjectIdAndAttendanceDate(
-            requestDTO.getStudentId(),
-            requestDTO.getSubjectId(),
-            requestDTO.getAttendanceDate()
-        );
-
-        if (alreadyMarked) {
-            throw new DuplicateAttendanceException(
-                "Attendance for student ID " + requestDTO.getStudentId() +
-                " in subject ID " + requestDTO.getSubjectId() +
-                " on " + requestDTO.getAttendanceDate() + " has already been marked"
-            );
-        }
-
-        // Step 3: Build the Attendance entity
-        Attendance attendance = Attendance.builder()
-            .student(student)
-            .subject(subject)
-            .attendanceDate(requestDTO.getAttendanceDate())
-            .status(requestDTO.getStatus())
-            .build();
-
-        // Step 4: Save to database
-        Attendance saved = attendanceRepository.save(attendance);
-
-        log.info("Attendance marked successfully with ID: {}", saved.getId());
-        return mapEntityToResponseDTO(saved);
+        // TODO [JAVA-17]: Implement markAttendance
+        return null;
     }
 
     // ==================================================================
@@ -209,40 +171,8 @@ public class AttendanceService {
      */
     @Transactional(readOnly = true)
     public AttendanceSummaryDTO getAttendanceSummary(Long studentId, Long subjectId) {
-        // Verify both exist
-        Student student = findStudentEntityOrThrow(studentId);
-        Subject subject = findSubjectEntityOrThrow(subjectId);
-
-        // Count total classes (all attendance records for this student/subject)
-        long totalClasses = attendanceRepository.countByStudentIdAndSubjectId(studentId, subjectId);
-
-        // Count how many times the student was PRESENT
-        long presentCount = attendanceRepository.countByStudentIdAndSubjectIdAndStatus(
-            studentId, subjectId, AttendanceStatus.PRESENT
-        );
-
-        long absentCount = totalClasses - presentCount;
-
-        // Calculate percentage — guard against division by zero
-        double percentage = 0.0;
-        if (totalClasses > 0) {
-            percentage = ((double) presentCount / totalClasses) * 100;
-            // Round to 2 decimal places: e.g., 84.666... → 84.67
-            percentage = Math.round(percentage * 100.0) / 100.0;
-        }
-
-        return AttendanceSummaryDTO.builder()
-            .studentId(studentId)
-            .studentName(student.getName())
-            .studentRollNumber(student.getRollNumber())
-            .subjectId(subjectId)
-            .subjectName(subject.getName())
-            .subjectCode(subject.getCode())
-            .totalClasses(totalClasses)
-            .presentCount(presentCount)
-            .absentCount(absentCount)
-            .attendancePercentage(percentage)
-            .build();
+        // TODO [JAVA-18]: Implement getAttendanceSummary
+        return null;
     }
 
     /**
