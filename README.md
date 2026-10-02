@@ -38,17 +38,17 @@ This application strictly follows the standard Spring Boot layered architecture 
 
 ```mermaid
 flowchart TD
-    Client((React Frontend / Postman)) <-->|JSON / REST| Controller[Controller Layer\n@RestController]
+    Client(("React Frontend / Postman")) <-->|"JSON / REST"| Controller["Controller Layer<br>@RestController"]
     
     subgraph Spring Boot Backend
-        Controller <-->|DTOs| Service[Service Layer\n@Service]
-        Service <-->|Entities| Repository[Repository Layer\n@Repository]
+        Controller <-->|"DTOs"| Service["Service Layer<br>@Service"]
+        Service <-->|"Entities"| Repository["Repository Layer<br>@Repository"]
         
-        Service -.-> Exceptions[GlobalExceptionHandler\n@RestControllerAdvice]
+        Service -.-> Exceptions["GlobalExceptionHandler<br>@RestControllerAdvice"]
         Controller -.-> Exceptions
     end
     
-    Repository <-->|Hibernate / JPA| DB[(MySQL Database)]
+    Repository <-->|"Hibernate / JPA"| DB[("MySQL Database")]
     
     classDef layer fill:#f9f,stroke:#333,stroke-width:2px,color:#000;
     class Controller,Service,Repository,Exceptions layer;
