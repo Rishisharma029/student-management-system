@@ -1,0 +1,37 @@
+# ================================================================
+#  .gitignore — Student Management System
+# ================================================================
+
+# ─── Secrets (NEVER commit these) ───
+application-local.properties
+.env
+.env.local
+.env.*.local
+
+# ─── Java / Maven ───
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# ─── Node.js / React ───
+node_modules/
+dist/
+.vite/
+
+# ─── IDE files ───
+.idea/
+.vscode/settings.json
+*.iml
+*.classpath
+*.project
+.settings/
+
+# ─── OS files ───
+.DS_Store
+Thumbs.db
+
+# ─── Logs ───
+logs/
+*.log
