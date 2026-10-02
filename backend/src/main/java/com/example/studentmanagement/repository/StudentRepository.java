@@ -44,6 +44,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
      * Spring Data JPA generates the SQL automatically from the method name:
      * SELECT * FROM students WHERE email = ?
      */
+    // Solution for JAVA-09:
+    
     Optional<Student> findByEmail(String email);
 
     /**
@@ -52,17 +54,23 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
      *
      * SELECT * FROM students WHERE roll_number = ?
      */
+    // Solution for JAVA-10:
+    
     Optional<Student> findByRollNumber(String rollNumber);
 
     /**
      * Find all students enrolled in a specific course.
      * Example: findByCourse("Computer Science")
      */
+    // Solution for JAVA-11:
+    
     List<Student> findByCourse(String course);
 
     /**
      * Find all students in a specific semester.
      */
+    // Solution for JAVA-12:
+    
     List<Student> findBySemester(Integer semester);
 
     /**
@@ -70,11 +78,15 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
      * More efficient than findByEmail because it returns boolean,
      * not the full Student object.
      */
+    // Solution for JAVA-13:
+    
     boolean existsByEmail(String email);
 
     /**
      * Check if a student with this roll number already exists.
      */
+    // Solution for JAVA-14:
+    
     boolean existsByRollNumber(String rollNumber);
 
     /**
@@ -88,6 +100,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
      */
     @Query("SELECT CASE WHEN COUNT(s) > 0 THEN true ELSE false END " +
            "FROM Student s WHERE s.email = :email AND s.id != :id")
+    // Solution for JAVA-15:
+    
     boolean existsByEmailAndIdNot(@Param("email") String email, @Param("id") Long id);
 
     /**
@@ -96,6 +110,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
      */
     @Query("SELECT CASE WHEN COUNT(s) > 0 THEN true ELSE false END " +
            "FROM Student s WHERE s.rollNumber = :rollNumber AND s.id != :id")
+    // Solution for JAVA-16:
+    
     boolean existsByRollNumberAndIdNot(@Param("rollNumber") String rollNumber, @Param("id") Long id);
 
     /**
@@ -112,6 +128,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
            "LOWER(s.name) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
            "LOWER(s.email) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
            "LOWER(s.rollNumber) LIKE LOWER(CONCAT('%', :term, '%'))")
+    // Solution for JAVA-17:
+    
     List<Student> searchStudents(@Param("term") String term);
 
     /**
@@ -120,5 +138,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
      *
      * LIMIT is not standard JPQL — we use Spring Data's Pageable instead.
      */
+    // Solution for JAVA-18:
+    
     List<Student> findTop5ByOrderByCreatedAtDesc();
 }

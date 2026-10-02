@@ -60,6 +60,8 @@ public class StudentService {
      * @throws DuplicateStudentException if email or roll number already exists
      */
     @Transactional
+    
+    // Solution for JAVA-01:
     public StudentResponseDTO createStudent(StudentRequestDTO requestDTO) {
         log.info("Creating new student with email: {}", requestDTO.getEmail());
 
@@ -97,6 +99,8 @@ public class StudentService {
      * @return list of all students as response DTOs
      */
     @Transactional(readOnly = true)
+    
+    // Solution for JAVA-02:
     public List<StudentResponseDTO> getAllStudents() {
         log.debug("Fetching all students");
 
@@ -118,6 +122,8 @@ public class StudentService {
      * @throws StudentNotFoundException if no student with this ID exists
      */
     @Transactional(readOnly = true)
+    
+    // Solution for JAVA-03:
     public StudentResponseDTO getStudentById(Long id) {
         log.debug("Fetching student with ID: {}", id);
 
@@ -144,6 +150,8 @@ public class StudentService {
      * @return            the updated student as a response DTO
      */
     @Transactional
+    
+    // Solution for JAVA-04:
     public StudentResponseDTO updateStudent(Long id, StudentRequestDTO requestDTO) {
         log.info("Updating student with ID: {}", id);
 
@@ -193,6 +201,8 @@ public class StudentService {
      * @throws StudentNotFoundException if no student with this ID exists
      */
     @Transactional
+    
+    // Solution for JAVA-05:
     public void deleteStudent(Long id) {
         log.info("Deleting student with ID: {}", id);
 
@@ -216,6 +226,8 @@ public class StudentService {
      * @return            list of matching students
      */
     @Transactional(readOnly = true)
+    
+    // Solution for JAVA-06:
     public List<StudentResponseDTO> searchStudents(String searchTerm) {
         log.debug("Searching students with term: '{}'", searchTerm);
 
@@ -233,6 +245,8 @@ public class StudentService {
      * Filters students by course.
      */
     @Transactional(readOnly = true)
+    
+    // Solution for JAVA-36:
     public List<StudentResponseDTO> getStudentsByCourse(String course) {
         return studentRepository.findByCourse(course)
             .stream()
@@ -244,6 +258,8 @@ public class StudentService {
      * Filters students by semester.
      */
     @Transactional(readOnly = true)
+    
+    // Solution for JAVA-37:
     public List<StudentResponseDTO> getStudentsBySemester(Integer semester) {
         return studentRepository.findBySemester(semester)
             .stream()
@@ -256,6 +272,8 @@ public class StudentService {
      * Used for the dashboard "Recent Students" widget.
      */
     @Transactional(readOnly = true)
+    
+    // Solution for JAVA-38:
     public List<StudentResponseDTO> getRecentStudents() {
         return studentRepository.findTop5ByOrderByCreatedAtDesc()
             .stream()

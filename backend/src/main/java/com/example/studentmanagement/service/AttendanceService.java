@@ -60,6 +60,8 @@ public class AttendanceService {
      * @return            the created attendance record
      */
     @Transactional
+    
+    // Solution for JAVA-17:
     public AttendanceResponseDTO markAttendance(AttendanceRequestDTO requestDTO) {
         log.info("Marking attendance: student={}, subject={}, date={}, status={}",
             requestDTO.getStudentId(),
@@ -208,6 +210,8 @@ public class AttendanceService {
      * @return           AttendanceSummaryDTO with percentage and counts
      */
     @Transactional(readOnly = true)
+    
+    // Solution for JAVA-18:
     public AttendanceSummaryDTO getAttendanceSummary(Long studentId, Long subjectId) {
         // Verify both exist
         Student student = findStudentEntityOrThrow(studentId);

@@ -82,6 +82,8 @@ class StudentServiceTest {
 
     @Test
     @DisplayName("Should create a student successfully when email and roll number are unique")
+    // Solution for JAVA-27:
+    
     void createStudent_Success() {
         // ARRANGE: tell the mock repository what to return
         when(studentRepository.existsByEmail(anyString())).thenReturn(false);
@@ -136,6 +138,8 @@ class StudentServiceTest {
 
     @Test
     @DisplayName("Should return student when valid ID is provided")
+    // Solution for JAVA-30:
+    
     void getStudentById_Success() {
         // ARRANGE: mock the repository to return our sample student
         when(studentRepository.findById(1L)).thenReturn(Optional.of(sampleStudent));
@@ -163,6 +167,8 @@ class StudentServiceTest {
 
     @Test
     @DisplayName("Should return all students")
+    // Solution for JAVA-32:
+    
     void getAllStudents_Success() {
         // ARRANGE: mock a list with one student
         when(studentRepository.findAll()).thenReturn(List.of(sampleStudent));
@@ -181,6 +187,8 @@ class StudentServiceTest {
 
     @Test
     @DisplayName("Should update student successfully")
+    // Solution for JAVA-33:
+    
     void updateStudent_Success() {
         // ARRANGE
         when(studentRepository.findById(1L)).thenReturn(Optional.of(sampleStudent));
@@ -202,6 +210,8 @@ class StudentServiceTest {
 
     @Test
     @DisplayName("Should delete student successfully when ID exists")
+    // Solution for JAVA-34:
+    
     void deleteStudent_Success() {
         // ARRANGE
         when(studentRepository.findById(1L)).thenReturn(Optional.of(sampleStudent));
