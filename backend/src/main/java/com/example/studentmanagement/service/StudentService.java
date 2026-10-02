@@ -67,32 +67,8 @@ public class StudentService {
      */
     @Transactional
     public StudentResponseDTO createStudent(StudentRequestDTO requestDTO) {
-        log.info("Creating new student with email: {}", requestDTO.getEmail());
-
-        // ── Business Rule: Email must be unique ──
-        if (studentRepository.existsByEmail(requestDTO.getEmail())) {
-            throw new DuplicateStudentException(
-                "A student with email '" + requestDTO.getEmail() + "' already exists"
-            );
-        }
-
-        // ── Business Rule: Roll number must be unique ──
-        if (studentRepository.existsByRollNumber(requestDTO.getRollNumber())) {
-            throw new DuplicateStudentException(
-                "A student with roll number '" + requestDTO.getRollNumber() + "' already exists"
-            );
-        }
-
-        // Convert the incoming DTO into a Student entity
-        Student student = mapRequestDTOToEntity(requestDTO);
-
-        // Save to the database (JPA handles the INSERT)
-        Student savedStudent = studentRepository.save(student);
-
-        log.info("Student created successfully with ID: {}", savedStudent.getId());
-
-        // Convert saved entity back to a response DTO and return
-        return mapEntityToResponseDTO(savedStudent);
+        // TODO [JAVA-01]: Implement createStudent
+        return null;
     }
 
     // ==================================================================
@@ -105,12 +81,8 @@ public class StudentService {
      */
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> getAllStudents() {
-        log.debug("Fetching all students");
-
-        return studentRepository.findAll()
-            .stream()
-            .map(this::mapEntityToResponseDTO)   // convert each entity to DTO
-            .collect(Collectors.toList());
+        // TODO [JAVA-02]: Implement getAllStudents
+        return null;
     }
 
     // ==================================================================
@@ -126,10 +98,8 @@ public class StudentService {
      */
     @Transactional(readOnly = true)
     public StudentResponseDTO getStudentById(Long id) {
-        log.debug("Fetching student with ID: {}", id);
-
-        Student student = findStudentOrThrow(id);
-        return mapEntityToResponseDTO(student);
+        // TODO [JAVA-03]: Implement getStudentById
+        return null;
     }
 
     // ==================================================================
@@ -152,40 +122,8 @@ public class StudentService {
      */
     @Transactional
     public StudentResponseDTO updateStudent(Long id, StudentRequestDTO requestDTO) {
-        log.info("Updating student with ID: {}", id);
-
-        // Step 1: Make sure the student exists
-        Student existingStudent = findStudentOrThrow(id);
-
-        // Step 2: Check that the email isn't already used by another student
-        // The 'AndIdNot' part means: "exclude this student's own ID from the check"
-        // This allows a student to keep their own email without getting a conflict error
-        if (studentRepository.existsByEmailAndIdNot(requestDTO.getEmail(), id)) {
-            throw new DuplicateStudentException(
-                "Email '" + requestDTO.getEmail() + "' is already in use by another student"
-            );
-        }
-
-        // Step 3: Same check for roll number
-        if (studentRepository.existsByRollNumberAndIdNot(requestDTO.getRollNumber(), id)) {
-            throw new DuplicateStudentException(
-                "Roll number '" + requestDTO.getRollNumber() + "' is already in use by another student"
-            );
-        }
-
-        // Step 4: Apply the new values to the existing entity
-        existingStudent.setName(requestDTO.getName());
-        existingStudent.setEmail(requestDTO.getEmail());
-        existingStudent.setPhone(requestDTO.getPhone());
-        existingStudent.setRollNumber(requestDTO.getRollNumber());
-        existingStudent.setCourse(requestDTO.getCourse());
-        existingStudent.setSemester(requestDTO.getSemester());
-
-        // Step 5: Save (JPA handles the UPDATE)
-        Student updatedStudent = studentRepository.save(existingStudent);
-
-        log.info("Student ID {} updated successfully", id);
-        return mapEntityToResponseDTO(updatedStudent);
+        // TODO [JAVA-04]: Implement updateStudent
+        return null;
     }
 
     // ==================================================================
@@ -202,14 +140,7 @@ public class StudentService {
      */
     @Transactional
     public void deleteStudent(Long id) {
-        log.info("Deleting student with ID: {}", id);
-
-        // Make sure the student exists before trying to delete
-        findStudentOrThrow(id);
-
-        studentRepository.deleteById(id);
-
-        log.info("Student ID {} deleted successfully", id);
+        // TODO [JAVA-05]: Implement deleteStudent
     }
 
     // ==================================================================
@@ -225,16 +156,8 @@ public class StudentService {
      */
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> searchStudents(String searchTerm) {
-        log.debug("Searching students with term: '{}'", searchTerm);
-
-        if (searchTerm == null || searchTerm.isBlank()) {
-            return getAllStudents();
-        }
-
-        return studentRepository.searchStudents(searchTerm.trim())
-            .stream()
-            .map(this::mapEntityToResponseDTO)
-            .collect(Collectors.toList());
+        // TODO [JAVA-06]: Implement searchStudents
+        return null;
     }
 
     /**

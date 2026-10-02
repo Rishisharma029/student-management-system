@@ -37,22 +37,8 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    /**
-     * Find a student by their email address.
-     * Used to check for duplicate emails before creating a new student.
-     *
-     * Spring Data JPA generates the SQL automatically from the method name:
-     * SELECT * FROM students WHERE email = ?
-     */
-    Optional<Student> findByEmail(String email);
-
-    /**
-     * Find a student by their roll number.
-     * Used to check for duplicate roll numbers.
-     *
-     * SELECT * FROM students WHERE roll_number = ?
-     */
-    Optional<Student> findByRollNumber(String rollNumber);
+    // TODO [JAVA-09]: Find student by email
+    // TODO [JAVA-10]: Find student by roll number
 
     /**
      * Find all students enrolled in a specific course.
