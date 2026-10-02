@@ -159,10 +159,8 @@ public class StudentService {
      */
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> getStudentsByCourse(String course) {
-        return studentRepository.findByCourse(course)
-            .stream()
-            .map(this::mapEntityToResponseDTO)
-            .collect(Collectors.toList());
+        // TODO [JAVA-36]: Implement getStudentsByCourse
+        return java.util.Collections.emptyList();
     }
 
     /**
@@ -170,10 +168,8 @@ public class StudentService {
      */
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> getStudentsBySemester(Integer semester) {
-        return studentRepository.findBySemester(semester)
-            .stream()
-            .map(this::mapEntityToResponseDTO)
-            .collect(Collectors.toList());
+        // TODO [JAVA-37]: Implement getStudentsBySemester
+        return java.util.Collections.emptyList();
     }
 
     /**
@@ -182,10 +178,8 @@ public class StudentService {
      */
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> getRecentStudents() {
-        return studentRepository.findTop5ByOrderByCreatedAtDesc()
-            .stream()
-            .map(this::mapEntityToResponseDTO)
-            .collect(Collectors.toList());
+        // TODO [JAVA-38]: Implement getRecentStudents
+        return java.util.Collections.emptyList();
     }
 
     // ==================================================================
