@@ -1,0 +1,42 @@
+# Solution Index
+
+This file maps every JAVA task to its implementation.
+
+- **JAVA-01**: [Create Student](./solutions/JAVA-01.md) in `StudentService.java` (`createStudent`) - Difficulty: Medium
+- **JAVA-02**: [Get All Students](./solutions/JAVA-02.md) in `StudentService.java` (`getAllStudents`) - Difficulty: Easy
+- **JAVA-03**: [Get Student By ID](./solutions/JAVA-03.md) in `StudentService.java` (`getStudentById`) - Difficulty: Easy
+- **JAVA-04**: [Update Student](./solutions/JAVA-04.md) in `StudentService.java` (`updateStudent`) - Difficulty: Medium
+- **JAVA-05**: [Delete Student](./solutions/JAVA-05.md) in `StudentService.java` (`deleteStudent`) - Difficulty: Easy
+- **JAVA-06**: [Search Students](./solutions/JAVA-06.md) in `StudentService.java` (`searchStudents`) - Difficulty: Medium
+- **JAVA-09**: [Find by Email](./solutions/JAVA-09.md) in `StudentRepository.java` (`findByEmail`) - Difficulty: Easy
+- **JAVA-10**: [Find by Roll Number](./solutions/JAVA-10.md) in `StudentRepository.java` (`findByRollNumber`) - Difficulty: Easy
+- **JAVA-11**: [Find by Course](./solutions/JAVA-11.md) in `StudentRepository.java` (`findByCourse`) - Difficulty: Easy
+- **JAVA-12**: [Find by Semester](./solutions/JAVA-12.md) in `StudentRepository.java` (`findBySemester`) - Difficulty: Easy
+- **JAVA-13**: [Exists by Email](./solutions/JAVA-13.md) in `StudentRepository.java` (`existsByEmail`) - Difficulty: Easy
+- **JAVA-14**: [Exists by Roll Number](./solutions/JAVA-14.md) in `StudentRepository.java` (`existsByRollNumber`) - Difficulty: Easy
+- **JAVA-15**: [Exists by Email Excluding ID](./solutions/JAVA-15.md) in `StudentRepository.java` (`existsByEmailAndIdNot`) - Difficulty: Medium
+- **JAVA-16**: [Exists by Roll Number Excluding ID](./solutions/JAVA-16.md) in `StudentRepository.java` (`existsByRollNumberAndIdNot`) - Difficulty: Medium
+- **JAVA-17**: [Search Students Repo](./solutions/JAVA-17-repo.md) in `StudentRepository.java` (`searchStudents`) - Difficulty: Medium
+- **JAVA-18**: [Find Recent Students](./solutions/JAVA-18-repo.md) in `StudentRepository.java` (`findTop5ByOrderByCreatedAtDesc`) - Difficulty: Easy
+- **JAVA-17**: [Mark Attendance](./solutions/JAVA-17-service.md) in `AttendanceService.java` (`markAttendance`) - Difficulty: Medium
+- **JAVA-18**: [Get Attendance Summary](./solutions/JAVA-18-service.md) in `AttendanceService.java` (`getAttendanceSummary`) - Difficulty: Hard
+- **JAVA-19**: [Handle Student Not Found](./solutions/JAVA-19.md) in `GlobalExceptionHandler.java` (`handleStudentNotFoundException`) - Difficulty: Easy
+- **JAVA-20**: [Handle Subject Not Found](./solutions/JAVA-20.md) in `GlobalExceptionHandler.java` (`handleSubjectNotFoundException`) - Difficulty: Easy
+- **JAVA-21**: [Handle Attendance Not Found](./solutions/JAVA-21.md) in `GlobalExceptionHandler.java` (`handleAttendanceNotFoundException`) - Difficulty: Easy
+- **JAVA-22**: [Handle Duplicate Student](./solutions/JAVA-22.md) in `GlobalExceptionHandler.java` (`handleDuplicateStudentException`) - Difficulty: Easy
+- **JAVA-23**: [Handle Duplicate Subject](./solutions/JAVA-23.md) in `GlobalExceptionHandler.java` (`handleDuplicateSubjectException`) - Difficulty: Easy
+- **JAVA-24**: [Handle Duplicate Attendance](./solutions/JAVA-24.md) in `GlobalExceptionHandler.java` (`handleDuplicateAttendanceException`) - Difficulty: Easy
+- **JAVA-25**: [Handle Validation Errors](./solutions/JAVA-25.md) in `GlobalExceptionHandler.java` (`handleMethodArgumentNotValidException`) - Difficulty: Medium
+- **JAVA-26**: [Handle Global Exception](./solutions/JAVA-26.md) in `GlobalExceptionHandler.java` (`handleGlobalException`) - Difficulty: Medium
+- **JAVA-27**: [Test Create Student Success](./solutions/JAVA-27.md) in `StudentServiceTest.java` (`createStudent_Success`) - Difficulty: Medium
+- **JAVA-28**: [Test Create Duplicate Email](./solutions/JAVA-28.md) in `StudentServiceTest.java` (`createStudent_DuplicateEmail`) - Difficulty: Medium
+- **JAVA-29**: [Test Create Duplicate Roll](./solutions/JAVA-29.md) in `StudentServiceTest.java` (`createStudent_DuplicateRollNumber`) - Difficulty: Medium
+- **JAVA-30**: [Test Get Student By ID Success](./solutions/JAVA-30.md) in `StudentServiceTest.java` (`getStudentById_Success`) - Difficulty: Easy
+- **JAVA-31**: [Test Get Student By ID Not Found](./solutions/JAVA-31.md) in `StudentServiceTest.java` (`getStudentById_NotFound`) - Difficulty: Easy
+- **JAVA-32**: [Test Get All Students](./solutions/JAVA-32.md) in `StudentServiceTest.java` (`getAllStudents_Success`) - Difficulty: Easy
+- **JAVA-33**: [Test Update Student Success](./solutions/JAVA-33.md) in `StudentServiceTest.java` (`updateStudent_Success`) - Difficulty: Medium
+- **JAVA-34**: [Test Delete Student Success](./solutions/JAVA-34.md) in `StudentServiceTest.java` (`deleteStudent_Success`) - Difficulty: Easy
+- **JAVA-35**: [Test Delete Student Not Found](./solutions/JAVA-35.md) in `StudentServiceTest.java` (`deleteStudent_NotFound`) - Difficulty: Easy
+- **JAVA-36**: [Get Students By Course](./solutions/JAVA-36.md) in `StudentService.java` (`getStudentsByCourse`) - Difficulty: Easy
+- **JAVA-37**: [Get Students By Semester](./solutions/JAVA-37.md) in `StudentService.java` (`getStudentsBySemester`) - Difficulty: Easy
+- **JAVA-38**: [Get Recent Students](./solutions/JAVA-38.md) in `StudentService.java` (`getRecentStudents`) - Difficulty: Easy
