@@ -12,33 +12,50 @@ This repository simulates a real-world, production-ready Spring Boot application
 
 Your mission is to hunt down these TODOs, write the missing Java code, make the automated tests pass, and bring the application to life.
 
+---
 
 # 🚦 START HERE
 
-1. Read: [docs/START_HERE.md](./docs/START_HERE.md)
-2. Then read: [docs/TASK-ROADMAP.md](./docs/TASK-ROADMAP.md)
-3. Then begin with: **JAVA-01**
+Before you touch any code, please review your personalized onboarding guides:
+
+1. 🏁 **[Welcome & Instructions](./docs/START_HERE.md)** - *Read this first!*
+2. 🐙 **[GitHub & Actions Guide](./docs/GITHUB_FOR_KHUSHI.md)** - *How to push and check your work.*
+3. 🗺️ **[Learning Roadmap](./docs/TASK-ROADMAP.md)** - *The exact order to complete tasks.*
+4. 📁 **[Quick File Map](./docs/FILE-MAP.md)** - *Where to find specific files quickly.*
+5. ✅ **[Progress Tracker](./docs/PROGRESS.md)** - *Mark tasks off as you complete them!*
 
 ---
- 
 
-Don't worry, you aren't doing this alone. I've built a full workflow for you.
+## 🔀 The Dual-Branch Learning System
 
-### 🔄 Your Learning Workflow
+This repository uses a strict two-branch system designed specifically for your learning. **You will work entirely on `main`.**
 
 ```mermaid
-flowchart LR
-    A[Attempt Task] --> B{Tests Pass?};
-    B -- No --> C[Read docs/HINTS.md];
-    C --> A;
-    B -- Yes --> D[Check rishi-solutions branch];
-    D --> E[Compare & Learn];
+flowchart TD
+    Repo[One Repository] --> Main[Branch: main]
+    Repo --> Sol[Branch: rishi-solutions]
+    
+    Main --> KH[Khushi Works Here]
+    KH --> TODO[Contains TODO Tasks]
+    TODO --> Try[You try solving it first]
+    Try --> Test[Run tests & debug]
+    
+    Sol --> RS[Rishi Implemented This]
+    RS --> Complete[Contains Complete Code]
+    Complete --> Explain[Easy Java Solutions]
+    Explain --> Why[Problem + Why + How explained]
+    
+    Test --> Compare{Compare your code<br>with the solution}
+    Why --> Compare
+    Compare --> Understand((Understand & Learn!))
+    
+    style Main fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px,color:#000
+    style Sol fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#000
 ```
 
-1. **Attempt:** Find a `[JAVA-XX]` task in the code. Write the implementation.
+1. **Attempt:** Find a `[JAVA-XX]` task in the code on `main`. Write the implementation.
 2. **Test:** Run `.\mvnw.cmd clean test` in your terminal. If it fails, debug it!
-3. **Hint:** If you're completely stuck, check the `docs/HINTS.md` file (no solutions, just nudges).
-4. **Compare:** Once you've solved it (or if you gave it your absolute best shot and are stuck), switch to the `rishi-solutions` branch. There, you'll find a massive library of detailed explanations explaining exactly *how* I solved it, *why* I did it that way, and what the edge cases are.
+3. **Compare:** Switch to the `rishi-solutions` branch. There, you'll find a massive library of detailed explanations explaining exactly *how* I solved it, *why* I did it that way, and what the edge cases are.
 
 ---
 
