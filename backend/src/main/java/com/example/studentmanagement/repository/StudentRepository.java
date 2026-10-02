@@ -128,7 +128,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
            "LOWER(s.name) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
            "LOWER(s.email) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
            "LOWER(s.rollNumber) LIKE LOWER(CONCAT('%', :term, '%'))")
-    // Solution for JAVA-17:
+    // Solution for JAVA-17-repo:
     
     List<Student> searchStudents(@Param("term") String term);
 
@@ -138,7 +138,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
      *
      * LIMIT is not standard JPQL — we use Spring Data's Pageable instead.
      */
-    // Solution for JAVA-18:
+    // Solution for JAVA-18-repo:
     
     List<Student> findTop5ByOrderByCreatedAtDesc();
 }

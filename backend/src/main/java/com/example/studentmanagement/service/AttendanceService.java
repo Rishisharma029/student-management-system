@@ -61,7 +61,7 @@ public class AttendanceService {
      */
     @Transactional
     
-    // Solution for JAVA-17:
+    // Solution for JAVA-17-service:
     public AttendanceResponseDTO markAttendance(AttendanceRequestDTO requestDTO) {
         log.info("Marking attendance: student={}, subject={}, date={}, status={}",
             requestDTO.getStudentId(),
@@ -211,7 +211,7 @@ public class AttendanceService {
      */
     @Transactional(readOnly = true)
     
-    // Solution for JAVA-18:
+    // Solution for JAVA-18-service:
     public AttendanceSummaryDTO getAttendanceSummary(Long studentId, Long subjectId) {
         // Verify both exist
         Student student = findStudentEntityOrThrow(studentId);

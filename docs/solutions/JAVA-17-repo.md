@@ -1,61 +1,32 @@
-# JAVA-17 — Search Students Repo
+# JAVA-17-repo — Search Students Repo
 
-## TASK IDENTIFICATION
+## 🎓 Khushi, what problem does this solve?
+**Problem:** We need to find students whose name, email, or roll number contains a specific search term, ignoring uppercase/lowercase.
 
-**Problem:** Database query to search students.
-
-**File:** `StudentRepository.java`
-
-**Method:** `searchStudents`
+When building a real Java application, we can't just think about the "happy path". A global search needs to cast a wide net across multiple columns simultaneously.
 
 ---
 
-## WHAT PROBLEM DOES THIS SOLVE?
+## 🛠️ Why did we use this specific approach?
 
-The application needs this feature to fulfill the `searchStudents` operation. Without it, the client request cannot be completed, or business validation will fail leading to inconsistent data.
-
----
-
-## WHY IS THIS NEEDED?
-
-This functionality is required to maintain proper separation of concerns. By implementing this in `StudentRepository.java`, we ensure that the logic or data access is isolated correctly in its own architectural layer. 
-For example, keeping database logic inside repositories prevents the controller layer from becoming bloated and violating Single Responsibility.
+Using Spring Data JPA's `@Query` annotation to write a custom JPQL query. (You could also use a wildly long derived name like `findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase...` but `@Query` is cleaner!)
 
 ---
 
-## WHY WAS THIS APPROACH USED?
+## 🧠 Core Java & Spring Concepts Used
 
-This approach leverages standard Spring Boot patterns.
-- If it is a Service layer, it relies on injected repositories to separate business rules from data access.
-- If it is a Repository layer, it relies on Spring Data JPA derived queries to generate SQL automatically.
-- If it is an Exception Handler, it leverages Spring's `@ExceptionHandler` to globally intercept errors before they reach the user.
-
-Alternatives like manually writing native SQL queries or handling exceptions individually inside every controller were rejected because they add boilerplate and duplicate logic.
+- **@Query and JPQL:** Writing queries using Java entity names (`Student`) instead of raw SQL table names (`students`).
+- **LIKE and Lowercase matching:** `LOWER(s.name) LIKE LOWER(CONCAT('%', :term, '%'))`.
 
 ---
 
-## JAVA / SPRING CONCEPTS USED
+## 📝 Step-by-Step Explanation
 
-**Concepts:**
-- Dependency Injection (Spring Boot)
-- Object-Oriented Encapsulation
-- Separation of Concerns
-- Optionals & Exception Handling
-
-These concepts ensure the application remains modular, testable, and robust.
+We explicitly write the JPQL query to check if the lowercase search term exists anywhere inside the lowercase name, email, or roll number.
 
 ---
 
-## SIMPLE IMPLEMENTATION EXPLANATION
-
-1. The operation `searchStudents` is invoked.
-2. Spring Data JPA custom JPQL or derived query.
-3. The final result is returned (or an exception is thrown based on the application rules if something goes wrong).
-4. The caller receives the properly mapped or expected data.
-
----
-
-## FINAL CODE
+## 💻 The Final Code
 
 ```java
 // Code not extracted automatically
@@ -63,38 +34,11 @@ These concepts ensure the application remains modular, testable, and robust.
 
 ---
 
-## LINE / BLOCK EXPLANATION
+## 🚦 Edge Cases Handled
 
-- **Method Signature:** Defines the input parameters and return type expected by the system API contract.
-- **Logic Validation:** Executes `Spring Data JPA custom JPQL or derived query.`. This prevents bad data from ever hitting the database.
-- **Return/Throw:** Completes the flow by handing data back to the caller or aborting the transaction.
+- Empty string (should be handled by service before calling this).
 
 ---
 
-## EXPECTED BEHAVIOR
-
-- On **valid input**, the operation succeeds and the appropriate data (or void) is returned (HTTP 2xx).
-- On **invalid input** or missing data, a dedicated Exception is thrown which the GlobalExceptionHandler maps to a standard HTTP 4xx error API response.
-
----
-
-## EDGE CASES
-
-- Null or missing parameters provided to the method.
-- Database connection failure.
-- Duplicate inputs resulting in data constraint violations.
-- Empty result sets returning an empty list rather than null.
-
----
-
-## CONNECTION TO THE APPLICATION
-
-This component sits in the Spring Boot flow:
-`React Frontend → Spring Controller → Service → Repository → MySQL`
-
-It implements the piece inside `StudentRepository.java` to bridge the operation correctly.
-
----
-
-**Difficulty:** Medium
-**Why:** Database query to search students.
+## 🧩 Where does this fit in the app?
+StudentService.searchStudents() -> **StudentRepository.searchStudents()** -> MySQL.

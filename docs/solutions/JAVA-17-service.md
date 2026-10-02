@@ -1,61 +1,32 @@
-# JAVA-17 — Mark Attendance
+# JAVA-17-service — Mark Attendance
 
-## TASK IDENTIFICATION
+## 🎓 Khushi, what problem does this solve?
+**Problem:** We need to record whether a student was PRESENT or ABSENT for a specific subject on a specific date.
 
-**Problem:** Marks a student as present or absent.
-
-**File:** `AttendanceService.java`
-
-**Method:** `markAttendance`
+When building a real Java application, we can't just think about the "happy path". This is the core functionality of the Attendance system. We must also strictly prevent marking attendance twice for the same student/subject/date combination.
 
 ---
 
-## WHAT PROBLEM DOES THIS SOLVE?
+## 🛠️ Why did we use this specific approach?
 
-The application needs this feature to fulfill the `markAttendance` operation. Without it, the client request cannot be completed, or business validation will fail leading to inconsistent data.
-
----
-
-## WHY IS THIS NEEDED?
-
-This functionality is required to maintain proper separation of concerns. By implementing this in `AttendanceService.java`, we ensure that the logic or data access is isolated correctly in its own architectural layer. 
-For example, keeping database logic inside repositories prevents the controller layer from becoming bloated and violating Single Responsibility.
+Fetch student, fetch subject, check if attendance already exists for that date. If it exists, throw `DuplicateAttendanceException`. If not, build the `Attendance` entity and save it.
 
 ---
 
-## WHY WAS THIS APPROACH USED?
+## 🧠 Core Java & Spring Concepts Used
 
-This approach leverages standard Spring Boot patterns.
-- If it is a Service layer, it relies on injected repositories to separate business rules from data access.
-- If it is a Repository layer, it relies on Spring Data JPA derived queries to generate SQL automatically.
-- If it is an Exception Handler, it leverages Spring's `@ExceptionHandler` to globally intercept errors before they reach the user.
-
-Alternatives like manually writing native SQL queries or handling exceptions individually inside every controller were rejected because they add boilerplate and duplicate logic.
+- **Relational Mapping:** Building an entity (`Attendance`) that links two other entities (`Student` and `Subject`).
+- **Business Validation:** Enforcing uniqueness before the database throws a hard constraint violation.
 
 ---
 
-## JAVA / SPRING CONCEPTS USED
+## 📝 Step-by-Step Explanation
 
-**Concepts:**
-- Dependency Injection (Spring Boot)
-- Object-Oriented Encapsulation
-- Separation of Concerns
-- Optionals & Exception Handling
-
-These concepts ensure the application remains modular, testable, and robust.
+1. Validate student exists. 2. Validate subject exists. 3. Query repository to ensure no record exists for this student+subject+date. 4. Save and map to response DTO.
 
 ---
 
-## SIMPLE IMPLEMENTATION EXPLANATION
-
-1. The operation `markAttendance` is invoked.
-2. Validates student, subject, and prevents duplicate attendance.
-3. The final result is returned (or an exception is thrown based on the application rules if something goes wrong).
-4. The caller receives the properly mapped or expected data.
-
----
-
-## FINAL CODE
+## 💻 The Final Code
 
 ```java
 public AttendanceResponseDTO markAttendance(AttendanceRequestDTO requestDTO) {
@@ -104,38 +75,12 @@ public AttendanceResponseDTO markAttendance(AttendanceRequestDTO requestDTO) {
 
 ---
 
-## LINE / BLOCK EXPLANATION
+## 🚦 Edge Cases Handled
 
-- **Method Signature:** Defines the input parameters and return type expected by the system API contract.
-- **Logic Validation:** Executes `Validates student, subject, and prevents duplicate attendance.`. This prevents bad data from ever hitting the database.
-- **Return/Throw:** Completes the flow by handing data back to the caller or aborting the transaction.
-
----
-
-## EXPECTED BEHAVIOR
-
-- On **valid input**, the operation succeeds and the appropriate data (or void) is returned (HTTP 2xx).
-- On **invalid input** or missing data, a dedicated Exception is thrown which the GlobalExceptionHandler maps to a standard HTTP 4xx error API response.
+- Invalid student or subject (Throws NotFound).
+- Attendance already marked today (Throws Duplicate).
 
 ---
 
-## EDGE CASES
-
-- Null or missing parameters provided to the method.
-- Database connection failure.
-- Duplicate inputs resulting in data constraint violations.
-- Empty result sets returning an empty list rather than null.
-
----
-
-## CONNECTION TO THE APPLICATION
-
-This component sits in the Spring Boot flow:
-`React Frontend → Spring Controller → Service → Repository → MySQL`
-
-It implements the piece inside `AttendanceService.java` to bridge the operation correctly.
-
----
-
-**Difficulty:** Medium
-**Why:** Marks a student as present or absent.
+## 🧩 Where does this fit in the app?
+Frontend Mark Button -> AttendanceController -> **AttendanceService.markAttendance()** -> Repository -> MySQL.
