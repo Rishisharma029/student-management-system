@@ -46,25 +46,22 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(StudentNotFoundException.class)
     public ResponseEntity<ApiErrorDTO> handleStudentNotFound(
             StudentNotFoundException ex, HttpServletRequest request) {
-
-        log.warn("Student not found: {}", ex.getMessage());
-        return buildError(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI(), null);
+        // TODO [JAVA-19]: Handle StudentNotFoundException
+        return null;
     }
 
     @ExceptionHandler(SubjectNotFoundException.class)
     public ResponseEntity<ApiErrorDTO> handleSubjectNotFound(
             SubjectNotFoundException ex, HttpServletRequest request) {
-
-        log.warn("Subject not found: {}", ex.getMessage());
-        return buildError(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI(), null);
+        // TODO [JAVA-20]: Handle SubjectNotFoundException
+        return null;
     }
 
     @ExceptionHandler(AttendanceNotFoundException.class)
     public ResponseEntity<ApiErrorDTO> handleAttendanceNotFound(
             AttendanceNotFoundException ex, HttpServletRequest request) {
-
-        log.warn("Attendance not found: {}", ex.getMessage());
-        return buildError(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI(), null);
+        // TODO [JAVA-21]: Handle AttendanceNotFoundException
+        return null;
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -74,25 +71,22 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DuplicateStudentException.class)
     public ResponseEntity<ApiErrorDTO> handleDuplicateStudent(
             DuplicateStudentException ex, HttpServletRequest request) {
-
-        log.warn("Duplicate student: {}", ex.getMessage());
-        return buildError(HttpStatus.CONFLICT, ex.getMessage(), request.getRequestURI(), null);
+        // TODO [JAVA-22]: Handle DuplicateStudentException
+        return null;
     }
 
     @ExceptionHandler(DuplicateSubjectException.class)
     public ResponseEntity<ApiErrorDTO> handleDuplicateSubject(
             DuplicateSubjectException ex, HttpServletRequest request) {
-
-        log.warn("Duplicate subject: {}", ex.getMessage());
-        return buildError(HttpStatus.CONFLICT, ex.getMessage(), request.getRequestURI(), null);
+        // TODO [JAVA-23]: Handle DuplicateSubjectException
+        return null;
     }
 
     @ExceptionHandler(DuplicateAttendanceException.class)
     public ResponseEntity<ApiErrorDTO> handleDuplicateAttendance(
             DuplicateAttendanceException ex, HttpServletRequest request) {
-
-        log.warn("Duplicate attendance: {}", ex.getMessage());
-        return buildError(HttpStatus.CONFLICT, ex.getMessage(), request.getRequestURI(), null);
+        // TODO [JAVA-24]: Handle DuplicateAttendanceException
+        return null;
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -103,20 +97,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorDTO> handleValidationErrors(
             MethodArgumentNotValidException ex, HttpServletRequest request) {
-
-        // Collect all field errors into a map: fieldName → errorMessage
-        Map<String, String> fieldErrors = new HashMap<>();
-        for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
-            fieldErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
-        }
-
-        log.warn("Validation failed: {}", fieldErrors);
-        return buildError(
-            HttpStatus.BAD_REQUEST,
-            "Validation failed. Please check the fields below.",
-            request.getRequestURI(),
-            fieldErrors
-        );
+        // TODO [JAVA-25]: Handle MethodArgumentNotValidException
+        return null;
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -126,16 +108,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorDTO> handleUnexpected(
             Exception ex, HttpServletRequest request) {
-
-        // Log the full stack trace so we can investigate
-        log.error("Unexpected error at [{}]: {}", request.getRequestURI(), ex.getMessage(), ex);
-
-        return buildError(
-            HttpStatus.INTERNAL_SERVER_ERROR,
-            "An unexpected error occurred. Please contact support.",
-            request.getRequestURI(),
-            null
-        );
+        // TODO [JAVA-26]: Handle Unexpected Exception
+        return null;
     }
 
     // ─────────────────────────────────────────────────────────────

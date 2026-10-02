@@ -83,51 +83,19 @@ class StudentServiceTest {
     @Test
     @DisplayName("Should create a student successfully when email and roll number are unique")
     void createStudent_Success() {
-        // ARRANGE: tell the mock repository what to return
-        when(studentRepository.existsByEmail(anyString())).thenReturn(false);
-        when(studentRepository.existsByRollNumber(anyString())).thenReturn(false);
-        when(studentRepository.save(any(Student.class))).thenReturn(sampleStudent);
-
-        // ACT: call the service method
-        StudentResponseDTO result = studentService.createStudent(sampleRequestDTO);
-
-        // ASSERT: verify the result is correct
-        assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(1L);
-        assertThat(result.getName()).isEqualTo("Khushi Sharma");
-        assertThat(result.getEmail()).isEqualTo("khushi.sharma@college.com");
-        assertThat(result.getRollNumber()).isEqualTo("CS2024001");
-
-        // Verify save() was called exactly once
-        verify(studentRepository, times(1)).save(any(Student.class));
+        // TODO [JAVA-27]: Write test for createStudent success
     }
 
     @Test
     @DisplayName("Should throw DuplicateStudentException when email already exists")
     void createStudent_ThrowsException_WhenEmailDuplicate() {
-        // ARRANGE: simulate an email that already exists
-        when(studentRepository.existsByEmail(anyString())).thenReturn(true);
-
-        // ACT + ASSERT: calling createStudent should throw an exception
-        assertThatThrownBy(() -> studentService.createStudent(sampleRequestDTO))
-            .isInstanceOf(DuplicateStudentException.class)
-            .hasMessageContaining("already exists");
-
-        // Verify we never called save() — it should have stopped at the email check
-        verify(studentRepository, never()).save(any());
+        // TODO [JAVA-28]: Write test for createStudent email duplicate
     }
 
     @Test
     @DisplayName("Should throw DuplicateStudentException when roll number already exists")
     void createStudent_ThrowsException_WhenRollNumberDuplicate() {
-        when(studentRepository.existsByEmail(anyString())).thenReturn(false);
-        when(studentRepository.existsByRollNumber(anyString())).thenReturn(true);
-
-        assertThatThrownBy(() -> studentService.createStudent(sampleRequestDTO))
-            .isInstanceOf(DuplicateStudentException.class)
-            .hasMessageContaining("roll number");
-
-        verify(studentRepository, never()).save(any());
+        // TODO [JAVA-29]: Write test for createStudent roll duplicate
     }
 
     // ==================================================================
@@ -137,42 +105,19 @@ class StudentServiceTest {
     @Test
     @DisplayName("Should return student when valid ID is provided")
     void getStudentById_Success() {
-        // ARRANGE: mock the repository to return our sample student
-        when(studentRepository.findById(1L)).thenReturn(Optional.of(sampleStudent));
-
-        // ACT
-        StudentResponseDTO result = studentService.getStudentById(1L);
-
-        // ASSERT
-        assertThat(result).isNotNull();
-        assertThat(result.getName()).isEqualTo("Khushi Sharma");
-        assertThat(result.getSemester()).isEqualTo(3);
+        // TODO [JAVA-30]: Write test for getStudentById success
     }
 
     @Test
     @DisplayName("Should throw StudentNotFoundException when student ID does not exist")
     void getStudentById_ThrowsException_WhenNotFound() {
-        // ARRANGE: simulate the student not being in the database
-        when(studentRepository.findById(99L)).thenReturn(Optional.empty());
-
-        // ACT + ASSERT
-        assertThatThrownBy(() -> studentService.getStudentById(99L))
-            .isInstanceOf(StudentNotFoundException.class)
-            .hasMessageContaining("99");
+        // TODO [JAVA-31]: Write test for getStudentById not found
     }
 
     @Test
     @DisplayName("Should return all students")
     void getAllStudents_Success() {
-        // ARRANGE: mock a list with one student
-        when(studentRepository.findAll()).thenReturn(List.of(sampleStudent));
-
-        // ACT
-        List<StudentResponseDTO> result = studentService.getAllStudents();
-
-        // ASSERT
-        assertThat(result).hasSize(1);
-        assertThat(result.get(0).getName()).isEqualTo("Khushi Sharma");
+        // TODO [JAVA-32]: Write test for getAllStudents success
     }
 
     // ==================================================================
@@ -182,18 +127,7 @@ class StudentServiceTest {
     @Test
     @DisplayName("Should update student successfully")
     void updateStudent_Success() {
-        // ARRANGE
-        when(studentRepository.findById(1L)).thenReturn(Optional.of(sampleStudent));
-        when(studentRepository.existsByEmailAndIdNot(anyString(), anyLong())).thenReturn(false);
-        when(studentRepository.existsByRollNumberAndIdNot(anyString(), anyLong())).thenReturn(false);
-        when(studentRepository.save(any(Student.class))).thenReturn(sampleStudent);
-
-        // ACT
-        StudentResponseDTO result = studentService.updateStudent(1L, sampleRequestDTO);
-
-        // ASSERT
-        assertThat(result).isNotNull();
-        verify(studentRepository, times(1)).save(any(Student.class));
+        // TODO [JAVA-33]: Write test for updateStudent success
     }
 
     // ==================================================================
@@ -203,25 +137,12 @@ class StudentServiceTest {
     @Test
     @DisplayName("Should delete student successfully when ID exists")
     void deleteStudent_Success() {
-        // ARRANGE
-        when(studentRepository.findById(1L)).thenReturn(Optional.of(sampleStudent));
-
-        // ACT
-        studentService.deleteStudent(1L);
-
-        // ASSERT: verify deleteById was called
-        verify(studentRepository, times(1)).deleteById(1L);
+        // TODO [JAVA-34]: Write test for deleteStudent success
     }
 
     @Test
     @DisplayName("Should throw StudentNotFoundException when deleting non-existent student")
     void deleteStudent_ThrowsException_WhenNotFound() {
-        when(studentRepository.findById(99L)).thenReturn(Optional.empty());
-
-        assertThatThrownBy(() -> studentService.deleteStudent(99L))
-            .isInstanceOf(StudentNotFoundException.class);
-
-        // Verify we never actually called delete
-        verify(studentRepository, never()).deleteById(any());
+        // TODO [JAVA-35]: Write test for deleteStudent not found
     }
 }
