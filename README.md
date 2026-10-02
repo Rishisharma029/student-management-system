@@ -1,134 +1,98 @@
-# 🎓 Student Management & Attendance System
+# 🎓 Student Management System - Training Edition
 
-A full-stack web application for managing students, subjects, and attendance tracking.
-
-**Stack:** Spring Boot 3.2 · Java 17 · MySQL 8 · React 18 · Vite
+Welcome to the **Student Management System** backend repository! This isn't just an ordinary codebase—this is a custom-built, highly structured interactive Java & Spring Boot learning environment designed exclusively by Rishi, for Khushi.
 
 ---
 
-## 🚀 Quick Start
+## 👩‍💻 A Message for Khushi
+
+If you're reading this, welcome to your Java backend training ground! 🚀 
+
+This repository simulates a real-world, production-ready Spring Boot application. However, the `main` branch you are currently on has **38 specific features missing** (marked with `// TODO [JAVA-XX]`). 
+
+Your mission is to hunt down these TODOs, write the missing Java code, make the automated tests pass, and bring the application to life. 
+
+Don't worry, you aren't doing this alone. I've built a full workflow for you.
+
+### 🔄 Your Learning Workflow
+
+```mermaid
+flowchart LR
+    A[Attempt Task] --> B{Tests Pass?};
+    B -- No --> C[Read docs/HINTS.md];
+    C --> A;
+    B -- Yes --> D[Check rishi-solutions branch];
+    D --> E[Compare & Learn];
+```
+
+1. **Attempt:** Find a `[JAVA-XX]` task in the code. Write the implementation.
+2. **Test:** Run `.\mvnw.cmd clean test` in your terminal. If it fails, debug it!
+3. **Hint:** If you're completely stuck, check the `docs/HINTS.md` file (no solutions, just nudges).
+4. **Compare:** Once you've solved it (or if you gave it your absolute best shot and are stuck), switch to the `rishi-solutions` branch. There, you'll find a massive library of detailed explanations explaining exactly *how* I solved it, *why* I did it that way, and what the edge cases are.
+
+---
+
+## 🏗️ System Architecture
+
+This application strictly follows the standard Spring Boot layered architecture to ensure separation of concerns.
+
+```mermaid
+flowchart TD
+    Client((React Frontend / Postman)) <-->|JSON / REST| Controller[Controller Layer\n@RestController]
+    
+    subgraph Spring Boot Backend
+        Controller <-->|DTOs| Service[Service Layer\n@Service]
+        Service <-->|Entities| Repository[Repository Layer\n@Repository]
+        
+        Service -.-> Exceptions[GlobalExceptionHandler\n@RestControllerAdvice]
+        Controller -.-> Exceptions
+    end
+    
+    Repository <-->|Hibernate / JPA| DB[(MySQL Database)]
+    
+    classDef layer fill:#f9f,stroke:#333,stroke-width:2px,color:#000;
+    class Controller,Service,Repository,Exceptions layer;
+```
+
+---
+
+## 💻 Tech Stack
+
+- **Language:** Java 17+
+- **Framework:** Spring Boot 3.x
+- **Database:** MySQL 8.x (Production) & H2 (In-memory testing)
+- **Data Access:** Spring Data JPA / Hibernate
+- **Validation:** Jakarta Bean Validation
+- **Boilerplate Reduction:** Lombok
+- **Testing:** JUnit 5 & Mockito
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
+- JDK 17 installed and added to your PATH.
+- MySQL installed and running on port 3306.
+- A MySQL database created named `student_management_db`.
 
-| Tool | Version |
-|------|---------|
-| Java | 17+ |
-| Maven | 3.8+ |
-| Node.js | 18+ |
-| MySQL | 8.0+ |
+### Running the Application
 
----
+1. Open your terminal in the `backend` directory.
+2. Update `src/main/resources/application-local.properties` with your MySQL username and password.
+3. Start the application:
+   ```bash
+   .\mvnw.cmd spring-boot:run
+   ```
+4. Check the API documentation automatically generated for you at: 
+   `http://localhost:8080/swagger-ui.html`
 
-### Step 1 — Database Setup
-
-```sql
--- Open MySQL and run:
-source database/schema.sql
-source database/sample-data.sql
-```
-
-This creates the `student_management_db` database with all tables and sample data.
-
----
-
-### Step 2 — Backend Setup
-
+### Running the Tests
+To verify your work on the tasks, run:
 ```bash
-cd backend
-```
-
-Create your local config file:
-```bash
-copy src\main\resources\application-local.properties.example src\main\resources\application-local.properties
-```
-
-Edit `application-local.properties` and set your MySQL credentials:
-```properties
-spring.datasource.username=root
-spring.datasource.password=YOUR_PASSWORD_HERE
-```
-
-Start the backend:
-```bash
-mvn spring-boot:run
-```
-
-Backend runs at: **http://localhost:8080**  
-Swagger UI: **http://localhost:8080/swagger-ui.html**
-
----
-
-### Step 3 — Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Frontend runs at: **http://localhost:5173**
-
----
-
-## 📱 Application Features
-
-- ✅ **Student Management** — Create, view, update, delete students
-- ✅ **Subject Management** — Manage course subjects
-- ✅ **Attendance Tracking** — Mark and view daily attendance
-- ✅ **Attendance Analytics** — Automatic percentage calculation
-- ✅ **Search & Filter** — Search students by name, email, roll number
-- ✅ **Dashboard** — Live statistics from the database
-- ✅ **API Documentation** — Interactive Swagger UI
-
----
-
-## 📁 Project Structure
-
-```
-student-management-system/
-├── backend/                    ← Spring Boot API
-│   └── src/main/java/com/example/studentmanagement/
-│       ├── controller/         ← REST endpoints
-│       ├── service/            ← Business logic
-│       ├── repository/         ← Database queries
-│       ├── model/              ← JPA entities
-│       ├── dto/                ← Data transfer objects
-│       ├── exception/          ← Custom exceptions + handler
-│       └── config/             ← CORS, Swagger, etc.
-├── frontend/                   ← React + Vite
-│   └── src/
-│       ├── api/                ← Axios API calls
-│       ├── components/         ← Reusable React components
-│       └── pages/              ← Page-level components
-├── database/
-│   ├── schema.sql              ← Table definitions
-│   └── sample-data.sql         ← Test data
-└── docs/
-    ├── API.md                  ← API documentation
-    ├── HINTS.md                ← Task hints (no spoilers)
-    ├── TASKS.md                ← Implementation tasks
-    └── DEVELOPMENT_RULES.md    ← Code standards
+.\mvnw.cmd clean test
 ```
 
 ---
 
-## 🔒 Environment Variables
-
-Never commit real credentials. Use `application-local.properties` (git-ignored).
-
-```properties
-# application-local.properties
-spring.datasource.username=YOUR_DB_USERNAME
-spring.datasource.password=YOUR_DB_PASSWORD
-```
-
----
-
-## 🧪 Running Tests
-
-```bash
-cd backend
-mvn test
-```
-
-Tests use an H2 in-memory database — no MySQL needed for testing.
+## ⚖️ License
+This repository is strictly protected by an Exclusive Personal Use License. It is intended solely for the educational advancement of Khushi. See `LICENSE` for the complete binding restrictions.
