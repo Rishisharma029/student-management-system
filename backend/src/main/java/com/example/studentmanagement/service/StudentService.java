@@ -31,12 +31,7 @@ import java.util.stream.Collectors;
  *  - Call the repository
  *  - Throw meaningful exceptions when something goes wrong
  *
- *  @Service   → tells Spring to create this as a Spring bean
- *  @Slf4j     → gives us a 'log' object for logging
- *  @RequiredArgsConstructor → generates a constructor for all 'final' fields
- *                             (this is how Spring injects the repository)
- *  @Transactional → methods wrapped in a database transaction;
- *                   if anything throws, the whole thing rolls back
+
  * ═══════════════════════════════════════════════════════════════
  */
 @Slf4j
@@ -44,7 +39,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StudentService {
 
-    // Spring injects this automatically because of @RequiredArgsConstructor
     private final StudentRepository studentRepository;
 
     // ==================================================================
@@ -67,8 +61,31 @@ public class StudentService {
      */
     @Transactional
     public StudentResponseDTO createStudent(StudentRequestDTO requestDTO) {
-        // TODO [JAVA-01]: Implement createStudent
-        return null;
+        log.info("Creating new student with email: {}", requestDTO.getEmail());
+
+        // ── Business Rule: Email must be unique ──
+        if (studentRepository.existsByEmail(requestDTO.getEmail())) {
+            throw new DuplicateStudentException(
+                "A student with email '" + requestDTO.getEmail() + "' already exists"
+            );
+        }
+
+        // ── Business Rule: Roll number must be unique ──
+        if (studentRepository.existsByRollNumber(requestDTO.getRollNumber())) {
+            throw new DuplicateStudentException(
+                "A student with roll number '" + requestDTO.getRollNumber() + "' already exists"
+            );
+        }
+
+        // Convert the incoming DTO into a Student entity
+        Student student = mapRequestDTOToEntity(requestDTO);
+
+        Student savedStudent = studentRepository.save(student);
+
+        log.info("Student created successfully with ID: {}", savedStudent.getId());
+
+        // Convert saved entity back to a response DTO and return
+        return mapEntityToResponseDTO(savedStudent);
     }
 
     // ==================================================================
@@ -81,8 +98,12 @@ public class StudentService {
      */
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> getAllStudents() {
-        // TODO [JAVA-02]: Implement getAllStudents
-        return null;
+        log.debug("Fetching all students");
+
+        return studentRepository.findAll()
+            .stream()
+            .map(this::mapEntityToResponseDTO)   // convert each entity to DTO
+            .collect(Collectors.toList());
     }
 
     // ==================================================================
@@ -98,8 +119,10 @@ public class StudentService {
      */
     @Transactional(readOnly = true)
     public StudentResponseDTO getStudentById(Long id) {
-        // TODO [JAVA-03]: Implement getStudentById
-        return null;
+        log.debug("Fetching student with ID: {}", id);
+
+        Student student = findStudentOrThrow(id);
+        return mapEntityToResponseDTO(student);
     }
 
     // ==================================================================
@@ -122,8 +145,39 @@ public class StudentService {
      */
     @Transactional
     public StudentResponseDTO updateStudent(Long id, StudentRequestDTO requestDTO) {
-        // TODO [JAVA-04]: Implement updateStudent
-        return null;
+        log.info("Updating student with ID: {}", id);
+
+        // Step 1: Make sure the student exists
+        Student existingStudent = findStudentOrThrow(id);
+
+        // Step 2: Check that the email isn't already used by another student
+        // The 'AndIdNot' part means: "exclude this student's own ID from the check"
+        // This allows a student to keep their own email without getting a conflict error
+        if (studentRepository.existsByEmailAndIdNot(requestDTO.getEmail(), id)) {
+            throw new DuplicateStudentException(
+                "Email '" + requestDTO.getEmail() + "' is already in use by another student"
+            );
+        }
+
+        // Step 3: Same check for roll number
+        if (studentRepository.existsByRollNumberAndIdNot(requestDTO.getRollNumber(), id)) {
+            throw new DuplicateStudentException(
+                "Roll number '" + requestDTO.getRollNumber() + "' is already in use by another student"
+            );
+        }
+
+        // Step 4: Apply the new values to the existing entity
+        existingStudent.setName(requestDTO.getName());
+        existingStudent.setEmail(requestDTO.getEmail());
+        existingStudent.setPhone(requestDTO.getPhone());
+        existingStudent.setRollNumber(requestDTO.getRollNumber());
+        existingStudent.setCourse(requestDTO.getCourse());
+        existingStudent.setSemester(requestDTO.getSemester());
+
+        Student updatedStudent = studentRepository.save(existingStudent);
+
+        log.info("Student ID {} updated successfully", id);
+        return mapEntityToResponseDTO(updatedStudent);
     }
 
     // ==================================================================
@@ -140,7 +194,14 @@ public class StudentService {
      */
     @Transactional
     public void deleteStudent(Long id) {
-        // TODO [JAVA-05]: Implement deleteStudent
+        log.info("Deleting student with ID: {}", id);
+
+        // Make sure the student exists before trying to delete
+        findStudentOrThrow(id);
+
+        studentRepository.deleteById(id);
+
+        log.info("Student ID {} deleted successfully", id);
     }
 
     // ==================================================================
@@ -156,8 +217,16 @@ public class StudentService {
      */
     @Transactional(readOnly = true)
     public List<StudentResponseDTO> searchStudents(String searchTerm) {
-        // TODO [JAVA-06]: Implement searchStudents
-        return null;
+        log.debug("Searching students with term: '{}'", searchTerm);
+
+        if (searchTerm == null || searchTerm.isBlank()) {
+            return getAllStudents();
+        }
+
+        return studentRepository.searchStudents(searchTerm.trim())
+            .stream()
+            .map(this::mapEntityToResponseDTO)
+            .collect(Collectors.toList());
     }
 
     /**
@@ -202,8 +271,6 @@ public class StudentService {
      * Finds a student by ID or throws StudentNotFoundException.
      * This pattern is used in multiple methods, so we extract it.
      *
-     * Optional<T>.orElseThrow() → returns the value if present,
-     * otherwise executes the lambda and throws the exception.
      */
     private Student findStudentOrThrow(Long id) {
         return studentRepository.findById(id)

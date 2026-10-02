@@ -52,9 +52,6 @@ public class Attendance {
     /**
      * The student this attendance record belongs to.
      *
-     * @ManyToOne — many attendance records can belong to one student
-     * LAZY fetch — don't load the student object unless we need it
-     * @JoinColumn — the foreign key column in THIS table is 'student_id'
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
@@ -76,7 +73,6 @@ public class Attendance {
 
     /**
      * Whether the student was PRESENT or ABSENT.
-     * Stored as a String in the database (VARCHAR).
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 10)
@@ -93,9 +89,6 @@ public class Attendance {
      * ─────────────────────────────────────────────────────────
      *  Attendance Status Enum
      * ─────────────────────────────────────────────────────────
-     *  We use an enum instead of plain strings so only valid
-     *  values can ever be stored. "PREZENT" or "ABSNT" are
-     *  impossible with this approach.
      */
     public enum AttendanceStatus {
         PRESENT,
