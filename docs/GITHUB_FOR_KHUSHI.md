@@ -9,10 +9,20 @@ Welcome to GitHub! This is how software engineers save their work, track changes
 3. **Open the File**: Navigate to the exact file path.
 4. **Edit Locally**: Write your Java code.
 5. **Run Tests**: Check your work by running `.\mvnw.cmd clean test` in your terminal.
-6. **Save to Git**: Run `git add .` to stage your changes.
-7. **Commit**: Run `git commit -m "Solved JAVA-XX"` to save the snapshot.
-8. **Push**: Run `git push origin main` to upload it to GitHub.
-9. **Check Actions**: Open the "Actions" tab on the GitHub website!
+
+### 🚀 Push your work
+When you're happy with your implementation, it's time to save it and send it to GitHub:
+
+```bash
+# 1. Stage your changes (tell Git what you want to save)
+git add .
+
+# 2. Take a snapshot of your work with a clear message
+git commit -m "feat: implement JAVA-03"
+
+# 3. Upload it to GitHub!
+git push origin main
+```
 
 ## 🤖 What is GitHub Actions?
 GitHub Actions is an **automatic checker**. When you push code, GitHub spins up a virtual computer, runs your project's tests, and tells you whether they pass.
