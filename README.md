@@ -10,7 +10,17 @@ If you're reading this, welcome to your Java backend training ground! 🚀
 
 This repository simulates a real-world, production-ready Spring Boot application. However, the `main` branch you are currently on has **38 specific features missing** (marked with `// TODO [JAVA-XX]`). 
 
-Your mission is to hunt down these TODOs, write the missing Java code, make the automated tests pass, and bring the application to life. 
+Your mission is to hunt down these TODOs, write the missing Java code, make the automated tests pass, and bring the application to life.
+
+
+# 🚦 START HERE
+
+1. Read: [docs/START_HERE.md](./docs/START_HERE.md)
+2. Then read: [docs/TASK-ROADMAP.md](./docs/TASK-ROADMAP.md)
+3. Then begin with: **JAVA-01**
+
+---
+ 
 
 Don't worry, you aren't doing this alone. I've built a full workflow for you.
 
